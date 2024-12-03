@@ -11,7 +11,7 @@ pub fn process(input: &str) -> usize {
 
   v1.iter()
     .map(|item| v2.iter().filter(|v| *v == item).count() * *item)
-    .sum::<usize>()
+    .sum()
 }
 
 #[cfg(test)]

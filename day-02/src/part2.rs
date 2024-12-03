@@ -7,7 +7,7 @@ enum Direction {
 pub fn process(input: &str) -> usize {
   input
     .lines()
-    .map(|line| {
+    .filter_map(|line| {
       let nums = line
         .split(' ')
         .map(|n| n.parse::<usize>().unwrap())
@@ -24,7 +24,6 @@ pub fn process(input: &str) -> usize {
 
       None
     })
-    .filter(|x| x.is_some())
     .count()
 }
 

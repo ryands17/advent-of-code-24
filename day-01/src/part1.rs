@@ -12,10 +12,7 @@ pub fn process(input: &str) -> u32 {
   v1.sort();
   v2.sort();
 
-  v1.iter()
-    .zip(v2.iter())
-    .map(|(a, b)| a.abs_diff(*b))
-    .sum::<u32>()
+  v1.iter().zip(v2.iter()).map(|(a, b)| a.abs_diff(*b)).sum()
 }
 
 #[cfg(test)]
