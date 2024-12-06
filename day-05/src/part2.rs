@@ -30,11 +30,7 @@ pub fn process(input: &str) -> usize {
       'main: for i in 0..(vec.len() - 1) {
         for j in (i + 1)..vec.len() {
           match mappings.get(&(vec[i], vec[j])) {
-            None => {
-              is_valid = false;
-              break 'main;
-            }
-            Some(false) => {
+            None | Some(false) => {
               is_valid = false;
               break 'main;
             }
@@ -44,7 +40,7 @@ pub fn process(input: &str) -> usize {
       }
 
       if !is_valid {
-        vec.sort_by(|a, b| match mappings.get(&(*a, *b)) {
+        vec.sort_unstable_by(|a, b| match mappings.get(&(*a, *b)) {
           Some(true) => std::cmp::Ordering::Less,
           Some(false) => std::cmp::Ordering::Greater,
           None => std::cmp::Ordering::Equal,

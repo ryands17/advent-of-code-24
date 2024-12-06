@@ -28,8 +28,7 @@ pub fn process(input: &str) -> usize {
       for i in 0..(vec.len() - 1) {
         for j in (i + 1)..vec.len() {
           match mappings.get(&(vec[i], vec[j])) {
-            None => return 0,
-            Some(false) => return 0,
+            None | Some(false) => return 0,
             _ => {}
           }
         }
