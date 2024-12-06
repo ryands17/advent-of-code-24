@@ -1,10 +1,15 @@
+use std::sync::LazyLock;
+
 use regex::Regex;
 
-pub fn process(input: &str) -> usize {
-  let re = Regex::new(r"(mul\((\d+),(\d+)\))|(do\(\))|(don't\(\))").expect("Invalid regex");
+static RE: LazyLock<Regex> = LazyLock::new(|| {
+  Regex::new(r"(mul\((\d+),(\d+)\))|(do\(\))|(don't\(\))").expect("Invalid regex")
+});
 
+pub fn process(input: &str) -> usize {
   let mut valid_mul = true;
-  re.captures_iter(input)
+
+  RE.captures_iter(input)
     .filter_map(|cap| {
       let item = cap.get(0).unwrap().as_str();
 
