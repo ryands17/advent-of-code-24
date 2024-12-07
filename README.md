@@ -6,4 +6,6 @@ This repo is [Advent of Code](https://adventofcode.com/2024) challenges implemen
 - [Day 2](./day-02)
 - [Day 3](./day-03)
 - [Day 4](./day-04)
+- [Day 5](./day-05)
+- [Day 6](./day-06)
 
