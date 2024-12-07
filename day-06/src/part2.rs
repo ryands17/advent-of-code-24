@@ -1,6 +1,17 @@
 use std::collections::{HashMap, HashSet};
+use std::sync::LazyLock;
 
 use crate::vec::MyVec;
+
+// directions for a 90-degree turn
+static DIRECTIONS: LazyLock<HashMap<(isize, isize), (isize, isize)>> = LazyLock::new(|| {
+  HashMap::from([
+    ((-1, 0), (0, 1)),
+    ((0, 1), (1, 0)),
+    ((1, 0), (0, -1)),
+    ((0, -1), (-1, 0)),
+  ])
+});
 
 pub fn process(input: &str) -> usize {
   let mut grid: MyVec<MyVec<char>> = input
@@ -51,14 +62,6 @@ fn check_loop(grid: &MyVec<MyVec<char>>, guard_position: (isize, isize)) -> Opti
   let rows = grid.len() as isize;
   let cols = grid[0].len() as isize;
 
-  // directions for a 90-degree turn
-  let directions = HashMap::from([
-    ((-1, 0), (0, 1)),
-    ((0, 1), (1, 0)),
-    ((1, 0), (0, -1)),
-    ((0, -1), (-1, 0)),
-  ]);
-
   let mut direction: (isize, isize) = (-1, 0);
 
   let mut visited = HashSet::new();
@@ -77,7 +80,7 @@ fn check_loop(grid: &MyVec<MyVec<char>>, guard_position: (isize, isize)) -> Opti
 
     // rotate 90 degrees
     if grid[guard_position.0 + direction.0][guard_position.1 + direction.1] == '#' {
-      direction = *directions.get(&direction).unwrap();
+      direction = *DIRECTIONS.get(&direction).unwrap();
     } else {
       guard_position.0 += direction.0;
       guard_position.1 += direction.1;

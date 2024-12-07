@@ -2,10 +2,9 @@
 
 This repo is [Advent of Code](https://adventofcode.com/2024) challenges implemented in Rust.
 
-- [Day 1](./day-01)
-- [Day 2](./day-02)
-- [Day 3](./day-03)
-- [Day 4](./day-04)
-- [Day 5](./day-05)
-- [Day 6](./day-06)
-
+- [Day 01](./day-01)
+- [Day 02](./day-02)
+- [Day 03](./day-03)
+- [Day 04](./day-04)
+- [Day 05](./day-05)
+- [Day 06](./day-06)
