@@ -15,5 +15,3 @@ lint:
 
 test_all: lint
 	cargo test
-
-
