@@ -1,7 +1,7 @@
 use std::collections::{HashMap, HashSet};
 use std::sync::LazyLock;
 
-use crate::vec::MyVec;
+use utils::vec::MyVec;
 
 // directions for a 90-degree turn
 static DIRECTIONS: LazyLock<HashMap<(isize, isize), (isize, isize)>> = LazyLock::new(|| {

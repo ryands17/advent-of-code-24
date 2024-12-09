@@ -9,13 +9,13 @@ pub fn process(input: &str) -> usize {
   let row_len = grid.len() as isize;
   let col_len = grid[0].len() as isize;
 
-  let mut nodemap: HashMap<char, Vec<(usize, usize)>> = HashMap::new();
+  let mut nodemap: HashMap<char, Vec<(isize, isize)>> = HashMap::new();
 
   grid.iter().enumerate().for_each(|(r, row)| {
     row.iter().enumerate().for_each(|(c, col)| {
       if *col != '.' {
         let list = nodemap.entry(*col).or_default();
-        list.push((r, c));
+        list.push((r.try_into().unwrap(), c.try_into().unwrap()));
       }
     });
   });
@@ -25,11 +25,11 @@ pub fn process(input: &str) -> usize {
     for r in 0..coords.len() {
       for c in (r + 1)..coords.len() {
         // check for top mirrors
-        let mut r_tmp = coords[r].0 as isize;
-        let mut c_tmp = coords[r].1 as isize;
+        let mut r_tmp = coords[r].0;
+        let mut c_tmp = coords[r].1;
 
-        let r_delta = coords[c].0 as isize - coords[r].0 as isize;
-        let c_delta = coords[c].1 as isize - coords[r].1 as isize;
+        let r_delta = coords[c].0 - coords[r].0;
+        let c_delta = coords[c].1 - coords[r].1;
 
         // add all top antinodes (r.0 - (c.0 - r.0), r.1 - (c.1 - r.1))
         while 0 <= r_tmp && r_tmp < row_len && 0 <= c_tmp && c_tmp < col_len {
@@ -40,11 +40,11 @@ pub fn process(input: &str) -> usize {
         }
 
         // check for bottom mirrors
-        let mut r_tmp = coords[c].0 as isize;
-        let mut c_tmp = coords[c].1 as isize;
+        let mut r_tmp = coords[c].0;
+        let mut c_tmp = coords[c].1;
 
-        let r_delta = coords[c].0 as isize - coords[r].0 as isize;
-        let c_delta = coords[c].1 as isize - coords[r].1 as isize;
+        let r_delta = coords[c].0 - coords[r].0;
+        let c_delta = coords[c].1 - coords[r].1;
 
         // add all bottom antinodes (c.0 + (c.0 - r.0), c.1 + (c.1 - r.1))
         while 0 <= r_tmp && r_tmp < row_len && 0 <= c_tmp && c_tmp < col_len {

@@ -1,6 +1,6 @@
 use std::collections::{HashMap, HashSet};
 
-use crate::vec::MyVec;
+use utils::vec::MyVec;
 
 pub fn process(input: &str) -> usize {
   let grid: MyVec<MyVec<char>> = input
