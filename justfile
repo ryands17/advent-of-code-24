@@ -13,5 +13,8 @@ lint:
 	cargo fmt --all -- --check
 	cargo clippy -- -D warnings
 
+fix:
+	cargo clippy --fix --allow-staged
+
 test_all: lint
 	cargo test
