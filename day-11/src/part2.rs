@@ -40,11 +40,11 @@ fn blink(stone: usize, steps: usize, cache: &mut Cache) -> usize {
 
         cache.insert((stone, steps), result);
         return result;
-      } else {
-        let result = blink(stone * 2024, steps - 1, cache);
-        cache.insert((stone, steps), result);
-        return result;
       }
+
+      let result = blink(stone * 2024, steps - 1, cache);
+      cache.insert((stone, steps), result);
+      result
     }
   }
 }

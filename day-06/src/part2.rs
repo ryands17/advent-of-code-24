@@ -33,8 +33,8 @@ pub fn process(input: &str) -> usize {
     .next()
     .unwrap();
 
-  let rows = grid.len() as isize;
-  let cols = grid[0].len() as isize;
+  let rows = grid.len();
+  let cols = grid[0].len();
   let mut count = 0_usize;
 
   for i in 0..rows {
@@ -59,8 +59,8 @@ pub fn process(input: &str) -> usize {
 fn check_loop(grid: &MyVec<MyVec<char>>, guard_position: (isize, isize)) -> Option<()> {
   let mut guard_position = guard_position;
 
-  let rows = grid.len() as isize;
-  let cols = grid[0].len() as isize;
+  let rows = grid.len();
+  let cols = grid[0].len();
 
   let mut direction: (isize, isize) = (-1, 0);
 

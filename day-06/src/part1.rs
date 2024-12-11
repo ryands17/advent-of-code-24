@@ -9,8 +9,8 @@ pub fn process(input: &str) -> usize {
     .collect::<Vec<_>>()
     .into();
 
-  let rows = grid.len() as isize;
-  let cols = grid[0].len() as isize;
+  let rows = grid.len();
+  let cols = grid[0].len();
 
   // directions for a 90-degree turn
   let directions = HashMap::from([

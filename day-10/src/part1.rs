@@ -42,8 +42,8 @@ fn fetch_trails(grid: &MyVec<MyVec<u32>>, start_position: (usize, usize)) -> usi
   let mut bfs: VecDeque<(usize, usize)> = VecDeque::new();
   let mut traversed = HashSet::new();
 
-  let row_len = grid.len() as isize;
-  let col_len = grid[0].len() as isize;
+  let row_len = grid.len();
+  let col_len = grid[0].len();
 
   bfs.push_back(start_position);
 
