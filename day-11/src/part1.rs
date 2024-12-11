@@ -1,35 +1,52 @@
+use std::collections::HashMap;
+
+type Cache = HashMap<(usize, usize), usize>;
+
 pub fn process(input: &str) -> usize {
-  let mut stones = input
+  let stones = input
     .split(' ')
     .map(|n| n.parse::<usize>().unwrap())
     .collect::<Vec<_>>();
 
-  for _ in 0..25 {
-    stones = blink(stones);
-  }
+  let mut cache: Cache = HashMap::new();
 
-  stones.len()
+  stones
+    .into_iter()
+    .map(|stone| blink(stone, 25, &mut cache))
+    .sum()
 }
 
-fn blink(stones: Vec<usize>) -> Vec<usize> {
-  let mut new_numbers = Vec::new();
-
-  for n in stones {
-    let n_str = n.to_string();
-
-    if n == 0 {
-      new_numbers.push(1);
-    } else if n_str.len() % 2 == 0 {
-      let (first, second) = n_str.split_at(n_str.len() / 2);
-
-      new_numbers.push(first.parse::<usize>().unwrap());
-      new_numbers.push(second.parse::<usize>().unwrap());
-    } else {
-      new_numbers.push(n * 2024);
-    }
+fn blink(stone: usize, steps: usize, cache: &mut Cache) -> usize {
+  if steps == 0 {
+    return 1;
   }
 
-  new_numbers
+  match cache.get(&(stone, steps)) {
+    Some(val) => *val,
+    None => {
+      let stone_str = stone.to_string();
+
+      if stone == 0 {
+        let result = blink(1, steps - 1, cache);
+        cache.insert((stone, steps), result);
+        return result;
+      }
+
+      if stone_str.len() % 2 == 0 {
+        let (first, second) = stone_str.split_at(stone_str.len() / 2);
+
+        let result = blink(first.parse::<usize>().unwrap(), steps - 1, cache)
+          + blink(second.parse::<usize>().unwrap(), steps - 1, cache);
+
+        cache.insert((stone, steps), result);
+        return result;
+      } else {
+        let result = blink(stone * 2024, steps - 1, cache);
+        cache.insert((stone, steps), result);
+        return result;
+      }
+    }
+  }
 }
 
 #[cfg(test)]

@@ -1,12 +1,14 @@
 use std::collections::HashMap;
 
+type Cache = HashMap<(usize, usize), usize>;
+
 pub fn process(input: &str) -> usize {
   let stones = input
     .split(' ')
     .map(|n| n.parse::<usize>().unwrap())
     .collect::<Vec<_>>();
 
-  let mut cache: HashMap<(usize, usize), usize> = HashMap::new();
+  let mut cache: Cache = HashMap::new();
 
   stones
     .into_iter()
@@ -14,7 +16,7 @@ pub fn process(input: &str) -> usize {
     .sum()
 }
 
-fn blink(stone: usize, steps: usize, cache: &mut HashMap<(usize, usize), usize>) -> usize {
+fn blink(stone: usize, steps: usize, cache: &mut Cache) -> usize {
   if steps == 0 {
     return 1;
   }
@@ -22,23 +24,27 @@ fn blink(stone: usize, steps: usize, cache: &mut HashMap<(usize, usize), usize>)
   match cache.get(&(stone, steps)) {
     Some(val) => *val,
     None => {
-      let mut result = 0_usize;
       let stone_str = stone.to_string();
 
       if stone == 0 {
-        result = blink(1, steps - 1, cache);
-      } else if stone_str.len() % 2 == 0 {
-        let (first, second) = stone_str.split_at(stone_str.len() / 2);
-
-        result += blink(first.parse::<usize>().unwrap(), steps - 1, cache)
-          + blink(second.parse::<usize>().unwrap(), steps - 1, cache);
-      } else {
-        result += blink(stone * 2024, steps - 1, cache);
+        let result = blink(1, steps - 1, cache);
+        cache.insert((stone, steps), result);
+        return result;
       }
 
-      cache.insert((stone, steps), result);
+      if stone_str.len() % 2 == 0 {
+        let (first, second) = stone_str.split_at(stone_str.len() / 2);
 
-      *cache.get(&(stone, steps)).unwrap()
+        let result = blink(first.parse::<usize>().unwrap(), steps - 1, cache)
+          + blink(second.parse::<usize>().unwrap(), steps - 1, cache);
+
+        cache.insert((stone, steps), result);
+        return result;
+      } else {
+        let result = blink(stone * 2024, steps - 1, cache);
+        cache.insert((stone, steps), result);
+        return result;
+      }
     }
   }
 }
