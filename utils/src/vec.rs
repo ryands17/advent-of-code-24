@@ -1,6 +1,6 @@
 use std::ops::{Deref, DerefMut, Index, IndexMut};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct MyVec<T>(pub Vec<T>);
 
 impl<T> Deref for MyVec<T> {
