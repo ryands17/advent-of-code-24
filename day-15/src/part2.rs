@@ -1,6 +1,6 @@
 use utils::vec::MyVec;
 
-type Position = (isize, isize);
+use crate::utils::{get_direction, print_grid, Position};
 
 pub fn process(input: &str) -> usize {
   let mut sp = input.split("\n\n");
@@ -58,7 +58,6 @@ pub fn process(input: &str) -> usize {
   print_grid(&grid);
 
   for m in moves.chars() {
-    println!("Move: {m}");
     let mut targets: Vec<Position> = Vec::new();
     targets.push(r_pos);
 
@@ -140,26 +139,6 @@ fn get_targets(
       targets.push((dr, dc - 1));
       get_targets(grid, (dr, dc - 1), direction, targets);
     }
-  }
-}
-
-fn print_grid(grid: &MyVec<MyVec<char>>) {
-  for i in 0..grid.len() {
-    for j in 0..grid[i].len() {
-      print!("{} ", grid[i][j]);
-    }
-    println!("");
-  }
-
-  println!("\n\n");
-}
-
-fn get_direction(ch: char) -> Position {
-  match ch {
-    '^' => (-1, 0),
-    '>' => (0, 1),
-    'v' => (1, 0),
-    _ => (0, -1),
   }
 }
 

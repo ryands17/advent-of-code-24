@@ -1,6 +1,6 @@
 use utils::vec::MyVec;
 
-type Position = (isize, isize);
+use crate::utils::{get_direction, print_grid, Position};
 
 pub fn process(input: &str) -> usize {
   let mut sp = input.split("\n\n");
@@ -90,26 +90,6 @@ pub fn process(input: &str) -> usize {
   }
 
   sum
-}
-
-fn print_grid(grid: &MyVec<MyVec<char>>) {
-  for i in 0..grid.len() {
-    for j in 0..grid[i].len() {
-      print!("{} ", grid[i][j]);
-    }
-    println!("");
-  }
-
-  println!("\n\n");
-}
-
-fn get_direction(ch: char) -> Position {
-  match ch {
-    '^' => (-1, 0),
-    '>' => (0, 1),
-    'v' => (1, 0),
-    _ => (0, -1),
-  }
 }
 
 #[cfg(test)]
