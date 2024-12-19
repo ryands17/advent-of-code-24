@@ -17,3 +17,6 @@ This repo is [Advent of Code](https://adventofcode.com/2024) challenges implemen
 - [Day 13](./day-13)
 - [Day 14](./day-14)
 - [Day 15](./day-15)
+- [Day 17](./day-17)
+- [Day 18](./day-18)
+- [Day 19](./day-19)
